@@ -1,4 +1,8 @@
-@title: purple guy
+/*
+First time? Check out the tutorial game:
+https://sprig.hackclub.com/gallery/getting_started
+
+@title: mini wario
 @author: Shaibal Haque
 @tags: []
 @addedOn: 2024-00-00
@@ -10,7 +14,7 @@ const bg_street = "s"
 const bg_op = "o"
 const building = "b"
 
-  setLegend(
+setLegend(
   [ player, bitmap`
 ................
 ......0000......
@@ -27,8 +31,8 @@ const building = "b"
 .....66666......
 ......6.6.......
 .....03.30......
-................` ]
-    [ duck, bitmap`
+................` ],
+  [ duck, bitmap`
 .....FFFFF......
 .....FFH0F......
 ....FFF60F6.....
@@ -44,7 +48,7 @@ const building = "b"
 ...FFFFFF.......
 ....9..9........
 ....99.99.......
-................` ]
+................` ],
   [ bg_street, bitmap`
 7777777777777777
 7777777777722277
@@ -61,8 +65,8 @@ CCCCCCCCCCCCCCCC
 1111111111111111
 LLLLLLLLLLLLLLLL
 L66LLL66LL66LL66
-LLLLLLLLLLLLLLLL` ]
-    [ bg_op, bitmap`
+LLLLLLLLLLLLLLLL` ],
+  [ bg_op, bitmap`
 ................
 ................
 ................
@@ -78,8 +82,8 @@ LLLLLLLLLLLLLLLL` ]
 .0L0.00000.0L0..
 .000.00.00.000..
 .....11.11......
-....000.000.....` ]
- [ building, bitmap`
+....000.000.....` ],
+  [ building, bitmap`
 ................
 ................
 ....L0LLLL0L....
@@ -95,21 +99,21 @@ LLLLLLLLLLLLLLLL` ]
 ................
 ................
 ................
-................` ]    
-  )
+................` ]
+)
 
-setSolids([player, bg_op, duck ])
+setSolids([player, bg_op, duck])
 
 let level = 0
 const levels = [
   map`
-........
-........
-........
-........
-........
-........
-........`
+sddddsss
+sdssdsss
+sdssssss
+sddddsss
+ssssdsss
+ssddssss
+sdsssssb`
 ]
 
 setMap(levels[level])
@@ -121,24 +125,24 @@ setPushables({
 onInput("s", () => {
   getFirst(player).y += 1
 })
-onInput("w" , () => {
-  getFrist(player).y -= 1
-}
-onInput("a" , () => {
-  getFrist(player).x -= 1
-}
-onInput("d" , () => {
-  getFrist(player).x += 1
-}
-onInput("j" , () => {
-  setMap(levels[levels])
-}
+onInput("w", () => {
+  getFirst(player).y -= 1
+})
+onInput("a", () => {
+  getFirst(player).x -= 1
+})
+onInput("d", () => {
+  getFirst(player).x += 1
+})
+onInput("j", () => {
+  setMap(levels[level])
+})
 
-addText("Press J to reset" , {x:2, y:7, color:'9'})
+addText("Press J to reset", { x: 2, y: 7, color: '9' })
 
 afterInput(() => {
   clearText()
-  if(tilesWith(player,building).length >= 1){
-     addText("Game won", {x:2, y:7, color:'9'})
+  if (tilesWith(player, building).length >= 1) {
+    addText("Game won", { x: 2, y: 7, color: '9' })
   }
 })
