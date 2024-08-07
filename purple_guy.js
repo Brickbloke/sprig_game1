@@ -8,12 +8,15 @@ https://sprig.hackclub.com/gallery/getting_started
 @addedOn: 2024-00-00
 */
 
+/* setting constants will assign sprites to these later  */
 const player = "p"
 const duck = "d"
 const bg_street = "s"
 const bg_op = "o"
 const building = "b"
+/* end of assigning variables */
 
+/* setting sprites for all the variable */
 setLegend(
   [ player, bitmap`
 ................
@@ -101,9 +104,13 @@ LLLLLLLLLLLLLLLL` ],
 ................
 ................` ]
 )
+/* end sprite assignment */
 
+/* setting the solid objects */
 setSolids([player, bg_op, duck])
+/*end solid objects*/
 
+/* setting maps */
 let level = 0
 const levels = [
   map`
@@ -117,11 +124,15 @@ sdsssssb`
 ]
 
 setMap(levels[level])
+/* end setting maps */
 
+/* objects that can be pushed */
 setPushables({
   [ player ]: [bg_op, duck]
 })
+/* end pushables */
 
+/* adjust key setting */
 onInput("s", () => {
   getFirst(player).y += 1
 })
@@ -137,9 +148,13 @@ onInput("d", () => {
 onInput("j", () => {
   setMap(levels[level])
 })
+/* end adjusting key settings */
 
+/* reset button text */
 addText("Press J to reset", { x: 2, y: 7, color: '9' })
+/* reset button text end */
 
+/*rest is for winning the game */
 afterInput(() => {
   clearText()
   if (tilesWith(player, building).length >= 1) {
