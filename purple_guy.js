@@ -1,6 +1,4 @@
 /*
-First time? Check out the tutorial game:
-https://sprig.hackclub.com/gallery/getting_started
 
 @title: mini wario
 @author: Shaibal Haque
@@ -14,6 +12,7 @@ const duck = "d"
 const bg_street = "s"
 const bg_op = "o"
 const building = "b"
+const bg_sky = "x"
 /* end of assigning variables */
 
 /* setting sprites for all the variable */
@@ -36,22 +35,22 @@ setLegend(
 ......HH.HH.....
 ................` ],
   [ duck, bitmap`
-................
-......666.......
-......696.......
-...66F666F66....
-...66F666F66....
-...66FFFFF66....
-...66FFFFF66....
-...66F666F66....
-...66FFFFF66....
-...66FFFFF66....
-...66FF.FF66....
-.....FF.FF......
-.....FF.FF......
-.....FF.FF......
-....999.999.....
-................` ],
+1111111111111111
+1000000000000001
+1020200LL0020201
+1000000000000001
+1000LLLLLLLL0001
+1020L111111L0201
+1000L111111L0001
+10L0L111111L0L01
+10L0L111111L0L01
+1000L111111L0001
+1020L111111L0201
+1000LLLLLLLL0001
+1000000000000001
+1020200LL0020201
+1000000000000001
+1111111111111111` ],
   [ bg_street, bitmap`
 7777777777777777
 7777777777722277
@@ -102,8 +101,24 @@ CCCCCCCCCCCCCCDD
 4444444444444444
 0000000000000000
 0606060606060606
-0000000000000000` ]
-)
+0000000000000000` ],
+[ bg_sky, bitmap`
+7777777777777777
+7777777777722277
+7777777772222227
+7222277772222222
+2222222277112227
+1222222277777777
+7112221777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777777777777777
+7777772222277777
+7777222222222777
+7777122222222777
+7777711122217777
+7777777777777777` ],)
 /* end sprite assignment */
 
 /* setting the solid objects */
@@ -114,15 +129,15 @@ setSolids([player, bg_op, duck])
 let level = 0
 const levels = [
   map`
-sddddsss
-sdssdsss
-sdssssss
-sddddsss
-ssssdsss
-ssddssss
-sdsssssb`
+pxxxxxxx
+xoxoxoxo
+sdsdsdsd
+dsdsdsds
+sdsdsdsd
+dsdsdsds
+sssssssb`
 ]
-
+setBackground(bg_sky)
 setMap(levels[level])
 /* end setting maps */
 
