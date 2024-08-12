@@ -1,12 +1,12 @@
-/* setting constants will assign sprites to these later  */
+/* Setting constants for sprites */
 const player = "p"
 const duck = "d"
 const bg_street = "s"
 const bg_op = "o"
 const building = "b"
 const bg_sky = "x"
-/* end of assigning variables */
-// Create a tune:
+
+/* Tune for background music */
 const melody = tune`
 500: F4/500 + B4/500,
 500: D4~500,
@@ -41,20 +41,11 @@ const melody = tune`
 500: F4~500 + D4~500 + A4~500 + C5~500 + E5~500,
 500`
 
-// Play it:
-playTune(melody)
+playTune(melody, Infinity)
 
-// Play it 5 times:
-playTune(melody, 5)
-
-// Play it until the heat death of the universe:
-const playback = playTune(melody, Infinity)
-
-// Or make it shut up early:
-playback.end()
-/* setting sprites for all the variable */
+/* Assigning sprites */
 setLegend(
-  [ player, bitmap`
+  [player, bitmap`
 ................
 ......HHHHH.....
 ......H2H2H.....
@@ -70,8 +61,8 @@ setLegend(
 ......88.8H.....
 ......H8.8H.....
 ......HH.HH.....
-................` ],
-  [ duck, bitmap`
+................`],
+  [duck, bitmap`
 1111111111111111
 1000000000000001
 1020200LL0020201
@@ -87,8 +78,8 @@ setLegend(
 1000000000000001
 1020200LL0020201
 1000000000000001
-1111111111111111` ],
-  [ bg_street, bitmap`
+1111111111111111`],
+  [bg_street, bitmap`
 7777777777777777
 7777777777722277
 7777777772222227
@@ -104,8 +95,8 @@ CCCCCCCCCCCCCCCC
 1111111111111111
 LLLLLLLLLLLLLLLL
 L66LLL66LL66LL66
-LLLLLLLLLLLLLLLL` ],
-  [ bg_op, bitmap`
+LLLLLLLLLLLLLLLL`],
+  [bg_op, bitmap`
 ................
 ................
 ................
@@ -121,8 +112,8 @@ LLLLLLLLLLLLLLLL` ],
 .0L0.00000.0L0..
 .000.00.00.000..
 .....11.11......
-....000.000.....` ],
-  [ building, bitmap`
+....000.000.....`],
+  [building, bitmap`
 22227772222277DD
 22277777227777DD
 2227L0LLLL0L77DD
@@ -138,8 +129,8 @@ CCCCCCCCCCCCCCDD
 4444444444444444
 0000000000000000
 0606060606060606
-0000000000000000` ],
-[ bg_sky, bitmap`
+0000000000000000`],
+  [bg_sky, bitmap`
 7777777777777777
 7777777777722277
 7777777772222227
@@ -155,15 +146,15 @@ CCCCCCCCCCCCCCDD
 7777222222222777
 7777122222222777
 7777711122217777
-7777777777777777` ],)
-/* end sprite assignment */
+7777777777777777`]
+)
 
-/* setting the solid objects */
+/* Set solid objects */
 setSolids([player, bg_op, duck])
-/*end solid objects*/
 
-/* setting maps */
-let level = 0
+/* Setting maps */
+let level = 0;
+
 const levels = [
   map`
 pxxxxxxx
@@ -172,19 +163,89 @@ sdsdsdsd
 dsdsdsds
 sdsdsdsd
 dsdsdsds
-sssssssb`
-]
+sssssssb`,
+
+  map`
+bsssssxss
+ddddddxdd
+ddxdssssd
+dsxsddddd
+ddxddddxd
+dsdssssxd
+dddddddxd
+xsssssdxd
+xdddddddd
+sossssssp`,
+
+  map`
+ddddddddd
+dpdsxsdod
+ddddxdddd
+dsssxsssd
+ddddxdddd
+dxxdxdxxd
+dosdddsod
+ddddxdddd
+doodssxbd
+ddddddsdd`,
+
+  map`
+ddddddddd
+dddddddxd
+dxsssssxd
+dsdddddxd
+ddsssbdxd
+dxdddddxd
+doooooddd
+dddddddsp`,
+
+  map`
+dpddodxdd
+dxddxdxbd
+dxddxdxdd
+dxddxdxsd
+dxddxdddd
+dxddxdxod
+dxddddddd
+dxdxxdxxd
+dxdssdood
+ddddddddd`,
+
+  map`
+posososox
+ddddddddx
+xsoxsxoss
+xddsdxddd
+sxsdxsoss
+dxddxdddd
+sssssssss
+ddddddddd
+sxsxxxxxx
+dsdsssssb`,
+
+  map`
+sssssssss
+ddddddddd
+ddxxxxxdd
+dxxxxoxxd
+doxdbdxod
+ddxdddxdd
+ddddxdddd
+dsssxsssd
+ddddddddd
+sssspssss`,
+];
+
+/* Set the background and load the first level */
 setBackground(bg_sky)
 setMap(levels[level])
-/* end setting maps */
 
-/* objects that can be pushed */
+/* Set pushable objects */
 setPushables({
-  [ player ]: [bg_op, duck]
+  [player]: [bg_op, duck]
 })
-/* end pushables */
 
-/* adjust key setting */
+/* Control player movement */
 onInput("s", () => {
   getFirst(player).y += 1
 })
@@ -197,19 +258,24 @@ onInput("a", () => {
 onInput("d", () => {
   getFirst(player).x += 1
 })
+
+/* Reset level */
 onInput("j", () => {
   setMap(levels[level])
 })
-/* end adjusting key settings */
 
-/* reset button text */
-addText("Press J to reset", { x: 2, y: 7, color: '9' })
-/* reset button text end */
+/* Text for reset button */
+addText("Press J to reset", { x: 1, y: 1, color: color`8` })
 
-/*rest is for winning the game */
+/* Check for win condition */
 afterInput(() => {
-  clearText()
-  if (tilesWith(player, building).length >= 1) {
-    addText("Game won", { x: 2, y: 7, color: '9' })
+  if (tilesWith(player, building).length > 0) {
+    if (level < levels.length - 1) {
+      level++;
+      setMap(levels[level]);
+      addText("Level Complete!", { x: 2, y: 7, color: color`9` });
+    } else {
+      addText("GAME WON!!!!!!!!!!!!!!", { x: 2, y: 7, color: color`4` });
+    }
   }
 })
