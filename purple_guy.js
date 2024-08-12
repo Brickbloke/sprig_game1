@@ -1,11 +1,3 @@
-/*
-
-@title: mini wario
-@author: Shaibal Haque
-@tags: []
-@addedOn: 2024-00-00
-*/
-
 /* setting constants will assign sprites to these later  */
 const player = "p"
 const duck = "d"
@@ -14,7 +6,52 @@ const bg_op = "o"
 const building = "b"
 const bg_sky = "x"
 /* end of assigning variables */
+// Create a tune:
+const melody = tune`
+500: F4/500 + B4/500,
+500: D4~500,
+500: D4~500 + F4^500,
+500: D4~500,
+500: E4^500,
+500: E4^500,
+500: D4~500,
+500: D4~500 + F4^500,
+500: D4~500,
+500: E4^500,
+500: E4^500,
+500: D4~500,
+500: D4~500 + F4^500,
+500: D4~500,
+500: D4/500,
+500: D4/500,
+500: D4~500 + F4~500,
+500: D4~500 + F4~500 + G4^500 + E4^500,
+500: D4~500 + F4~500,
+500: E4^500 + G4^500,
+500: E4^500 + G4^500,
+500: F4~500 + D4~500,
+500: F4~500 + D4~500 + G4^500 + E4^500,
+500: F4~500 + D4~500,
+500: G4^500 + E4^500,
+500: G4^500 + E4^500,
+500: D4~500 + F4~500,
+500: D4~500 + F4~500 + G4^500 + E4^500,
+500: D4~500 + F4~500,
+500,
+500: F4~500 + D4~500 + A4~500 + C5~500 + E5~500,
+500`
 
+// Play it:
+playTune(melody)
+
+// Play it 5 times:
+playTune(melody, 5)
+
+// Play it until the heat death of the universe:
+const playback = playTune(melody, Infinity)
+
+// Or make it shut up early:
+playback.end()
 /* setting sprites for all the variable */
 setLegend(
   [ player, bitmap`
